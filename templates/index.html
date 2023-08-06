@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    overflow: hidden;
+    background-image: url("/static/walchand.jpg"); 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  
+}
+
+    #sendbtn{
+    outline:none;
+    font-size: 22px;
+    color: #eee;
+    background-color: #800080;
+    border: none;
+    border-radius: 32px;
+    transition-duration: 0.2s;
+
+}
+
+#user_input{
+    outline: none;
+    font-size: 16px;
+    background: #ececee;
+    color: #333;
+    border-radius: 32px 0 32px 32px;
+    padding: 0 16px;
+    border:solid 1px #777;
+  
+}
+h1{
+    text-align: center;
+    font-family: sans-serif;
+    color: #fff;
+    padding: 10px;
+    text-shadow: 1px 1px 4px #3d3c3c;
+    margin-bottom: 8px;
+    position: absolute;
+    left:150px;
+    top:20px;
+    color: rgb(129, 19, 19); 
+    font-weight: bold;
+}
+h2{
+    text-align: center;
+    font-family: sans-serif;
+    background-color: #800080;
+    color: #fff;
+    padding: 10px;
+    text-shadow: 1px 1px 4px #111;
+    margin-bottom: 8px;
+    border-radius: 24px  24px 0 0;
+}
+
+h3{
+    font-family: monospace;
+    font-size: 20px;
+}
+
+h4{
+    text-align: center;
+    font-family: sans-serif;
+    color: #fff;
+    padding: 10px;
+    text-shadow: 1px 1px 4px #3d3c3c;
+    margin-bottom: 8px;
+    position: absolute;
+    left:250px;
+    top:75px;
+    color: rgb(129, 19, 19);
+    font-size: 20px;
+
+}
+
+#wce{
+    width: 100px;
+    height: 100px;
+    background-size: 100%;
+    border-radius: 50%;
+    margin: 2px 10px 2px 10px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    position: absolute;
+    top:20px;
+    left: 20px;
+}
+
+
+.bot{
+    width: 60px;
+    height: 60px;
+    display: block;
+    background: url("/static/bot.jpg");
+    background-size: 100%;
+    border-radius: 50%;
+    margin: 10px;
+}
+#msg_area{
+    height: 68%;
+    padding: 0 12px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+#user{
+    height: 7%;
+    min-height: 42px;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    margin: 5px 16px;
+    border-radius: 32px;
+    background: linear-gradient(#ececee 50%, #800080 50%);
+    box-shadow: inset 1 10px 0 #777;
+}
+#main{
+    height: 560px;
+    max-width: 500px;
+    width: 500px;
+    box-shadow: outset 0 0 10px 4px #1116;
+    position:absolute;
+    right: 150px;
+    top:60px;
+    border: 2px solid #800080;
+    border-radius: 25px;
+    box-shadow: 5px 10px 8px 10px #888888;
+    background-color: white;
+   
+
+}
+ 
+.user-message {
+
+  color: black;
+  padding: 10px;
+  margin-bottom: 10px;
+  max-width: 80%;
+  background-color: #ead6f5;
+  border-radius: 0 16px 16px 16px;
+  font-size: 18px;
+  font-family: monospace;
+  display: inline-block;
+  width: auto;
+  padding: 14px;
+  word-wrap: break-word;
+  margin: 18px 14px;
+  float: right;
+}
+
+.bot-message {
+  font-size: 18px;
+  font-family: monospace;
+  display: inline-block;
+  width: auto;
+  max-width: 80%;
+  padding: 14px;
+  word-wrap: break-word;
+  margin: 18px 14px;
+  color: black;
+  background-color: #f5c0f5;
+  border-radius: 16px 16px 0 16px;
+  
+}
+
+
+.clearfix {
+  clear: both;
+}
+.gif{
+  position:absolute;
+  margin-left: 1220px;
+  margin-top: 30px;
+  background-size: 100%;
+  border-radius: 50%;
+  width: 160px;
+    
+
+}
+.w_img{
+  position:absolute;
+  margin-left: 80px;
+  margin-top: 180px;
+  background-size: 100%;
+  width: 600px;
+  border-radius: 15px;
+
+}
+
+
+    </style>
+</head>
+
+<body>
+    <img id="wce" src="/static/wce.jpg" alt="wce logo">
+    <h1><b>Walchand College of Engineering, Sangli</b></h1>
+    <h4><i>(A Government Aided Autonomous Institute)</i></h4>
+    <img class = "w_img" src="/static/b.png" alt="robo">
+    <img class = "gif" src="/static/ezgif.com-gif-maker.gif" alt="robo">
+    <div id="main">
+      <h2>WCE Academic ChatBot</h2>
+      <div class="bot"></div>
+      <!-- <img class = "gif" src="/static/ezgif.com-gif-maker.gif" alt="robo"> -->
+      <div id="msg_area">
+        <div id="conversation"></div>
+      </div>
+      <div id="user">
+        <input type="text" id="user_input" placeholder="Enter the message here"/>
+        <button id="sendbtn">Send</button>
+    </div>
+    </div>
+  
+    <script>
+      $(document).ready(function() {
+          var isConversationEnded = false;
+
+          $("#sendbtn").on("click", function() {
+              var userInput = $("#user_input").val();
+              var userDiv = $("<div class='user-message'></div>").text(userInput);
+              var conversationDiv = $("<div class='conversation'></div>").append(userDiv);
+              $("#conversation").append(conversationDiv);
+              var messageArea = document.getElementById("msg_area");
+              messageArea.scrollTop = messageArea.scrollHeight;
+              $("#user_input").val("");
+              getBotResponse(userInput);
+          });
+
+          $("#user_input").on("keydown", function(e) {
+              if (e.which === 13) {
+                  $("#sendbtn").click();
+              }
+          });
+
+          function getBotResponse(userInput) {
+              $.post("/get_response", {
+                  user_input: userInput
+              }, function(data) {
+                  var botDiv = $("<div class='bot-message'></div>").text(data);
+                  if (/(https?:\/\/[^\s]+)/g.test(data)) { // check if data is a link
+                      var link = data.match(/(https?:\/\/[^\s]+)/g)[0]; // get the link
+                      var linkHtml = $("<a></a>").attr("href", link).attr("target", "_blank").text(link); // create a link HTML element with target="_blank"
+                      botDiv.html(botDiv.html().replace(link, linkHtml.prop('outerHTML'))); // replace the link with the clickable link HTML
+                  }
+                  var conversationDiv = $("<div class='conversation'></div>").append(botDiv);
+                  $("#conversation").append(conversationDiv);
+                  $("#conversation").scrollTop($("#conversation")[0].scrollHeight);
+                  $("#user_input").prop("disabled", false);
+
+                  if (isConversationEnded) {
+                      askForFeedback();
+                  }
+              });
+              $("#user_input").prop("disabled", true);
+
+              if (userInput.toLowerCase() === "bye") {
+                  isConversationEnded = true;
+              }
+          }
+
+          function askForFeedback() {
+              var feedback = prompt("Thank you for using the chatbot! Please provide your feedback and suggestions for improvement:");
+              if (feedback) {
+                  saveFeedback(feedback);
+              }
+          }
+
+          function saveFeedback(feedback) {
+              $.post("/save_feedback", {
+                  feedback: feedback
+              }, function(response) {
+                  if (response === "success") {
+                      alert("Thank you for your feedback! It has been saved.");
+                  } else {
+                      alert("An error occurred while saving your feedback. Please try again.");
+                  }
+              });
+          }
+      });
+  </script>
+  
+  
+
+  </body>
+  
+</html>
+
+
